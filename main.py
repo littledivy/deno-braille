@@ -34,5 +34,7 @@ if __name__ == '__main__':
         if x >= w:
             y += 1
             x = 0
-    print(can.frame())
+    frame = can.frame()
+    print(frame)
+
 

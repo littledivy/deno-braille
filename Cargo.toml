@@ -1,0 +1,13 @@
+[package]
+name = "braille-deno-artwork"
+version = "0.1.0"
+authors = ["littledivy <dj.srivastava23@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+image = "0.23.12"
+drawille = "0.2.3"
+term_size = "0.3.2"
+[[bin]]
+name = "braille-deno-artwork"
+path = "main.rs"
