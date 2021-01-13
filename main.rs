@@ -3,32 +3,32 @@ use image::{
     imageops::{resize, FilterType::Lanczos3},
     open, DynamicImage,
 };
-use term_size::dimensions;
+use terminal_size::{terminal_size, Height, Width};
 
 fn main() {
-    let im = open("/home/divy/Downloads/logo.jpg").unwrap().to_rgba();
+    let im = open("logo.jpg").unwrap().to_rgba8();
     let gray = DynamicImage::ImageRgba8(im).into_luma8();
 
-    let (_tw, _th) = dimensions().unwrap();
-    let tw = (_tw * 1) as u32;
-    let th = (_th * 3) as u32;
+    let (Width(_tw), Height(_th)) = terminal_size().unwrap();
+    let tw = _tw as u32;
+    let _th = _th as u32;
 
     let mut w = gray.width();
     let mut h = gray.height();
 
     let mut img = gray.clone();
     if tw < w {
-        let ratio = tw / w;
+        let ratio: f64 = tw as f64 / w as f64;
+        h = (h as f64 * ratio) as u32;
         w = tw;
-        h = h * ratio;
-        img = resize(&gray, tw, th, Lanczos3);
+        img = resize(&gray, w, h, Lanczos3);
     }
 
     let samples = img.as_raw().to_vec();
 
     let mut x = 0;
     let mut y = 0;
-    let mut canvas = Canvas::new(tw, th);
+    let mut canvas = Canvas::new(w, h);
     for pix in samples {
         if pix > 128 {
             canvas.set(x, y);

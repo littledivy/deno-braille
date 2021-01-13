@@ -7,7 +7,8 @@ edition = "2018"
 [dependencies]
 image = "0.23.12"
 drawille = "0.2.3"
-term_size = "0.3.2"
+terminal_size = "0.1.15"
+
 [[bin]]
 name = "braille-deno-artwork"
 path = "main.rs"
